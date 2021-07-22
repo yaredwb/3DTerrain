@@ -317,7 +317,7 @@ st.title('3D Terrain Generator')
 
 with st.sidebar:
   # Exapnder for generating terrain from XZY data file
-  exp1 = st.beta_expander('Elevation Data Source', expanded=False)  
+  exp1 = st.beta_expander('Elevation Data Source', expanded=True)  
   with exp1:
     data_option = st.selectbox(
       label='Select terrain data source',
@@ -405,7 +405,7 @@ with st.sidebar:
       
     
   # Expander for generating terrain from latitude and longitude bounds
-  exp2 = st.beta_expander('Spatial Interpolation Settings')
+  exp2 = st.beta_expander('Spatial Interpolation Settings', expanded=True)
   with exp2:
     interp = st.selectbox(
       label='Spatial interpolation method',
@@ -470,7 +470,7 @@ elif interp == 'Triangulated Irregular Network (TIN)':
 
 with st.sidebar:
   # Expander for generating profile
-  exp3 = st.beta_expander('Generate Vertical Profile')
+  exp3 = st.beta_expander('Generate Vertical Profile', expanded=False)
   with exp3:
     st.markdown('*Define the coordinates of a cross-section line: (x0, y0) - (x1, y1)*')
     x0 = st.slider(
@@ -519,7 +519,7 @@ with st.sidebar:
     )
   
   # Exapnder for 3D terrain visualization option inputs
-  exp4 = st.beta_expander('Terrain Visualization Options')
+  exp4 = st.beta_expander('Terrain Visualization Options', expanded=True)
   with exp4:
     color_scale = st.selectbox(
       label='Color scale',
