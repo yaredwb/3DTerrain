@@ -1,0 +1,8 @@
+streamlit==0.81.0
+plotly==4.7.1
+pandas==1.0.4
+numpy==1.18.4
+scipy==1.5.0
+haversine==2.3.0
+urllib==1.25.7
+json==0.9.5
