@@ -629,6 +629,6 @@ st.write(fig2)
 #     st.write(fig2)
 
 
-st.markdown('''
+st.sidebar.markdown('''
   Author: [Yared Bekele (PhD)](https://yaredwb.com) [GitHub](https://github.com/yaredwb) [LinkedIn](https://www.linkedin.com/in/yaredworku/) [Twitter](https://twitter.com/yaredwb)
 ''')
