@@ -329,7 +329,7 @@ with st.sidebar:
       index=0
     )
     if data_option == 'Raw XYZ data file':
-      input_file = st.file_uploader('Upload file with XYZ data (*.txt, *.csv, *.xyz etc)')          
+      input_file = st.file_uploader('Upload file with XYZ data (*.txt, *.csv, *.xyz etc)')         
       skip_rows = st.number_input(
         label='Number of rows to skip',
         value=0,
