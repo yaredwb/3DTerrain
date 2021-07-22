@@ -1,4 +1,4 @@
-python==3.8.5
+python==3.8
 pip==20.2.3
 streamlit==0.81.0
 plotly==4.7.1
