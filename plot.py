@@ -1,4 +1,3 @@
-from turtle import fillcolor
 import plotly.graph_objects as go
 
 def terrain_plot(x_terrain, y_terrain, z_terrain, z, N, xp, yp, zp,
