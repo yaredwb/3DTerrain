@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run terrain.py
+web: sh setup.sh && streamlit run terrain_app.py
