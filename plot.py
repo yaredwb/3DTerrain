@@ -1,3 +1,4 @@
+from turtle import fillcolor
 import plotly.graph_objects as go
 
 def terrain_plot(x_terrain, y_terrain, z_terrain, z, N, xp, yp, zp,
@@ -59,7 +60,7 @@ def terrain_plot(x_terrain, y_terrain, z_terrain, z, N, xp, yp, zp,
     scene_camera=dict(
       up=dict(x=0, y=0, z=1),
       center=dict(x=0, y=0, z=-0.4),
-      eye=dict(x=2, y=2, z=1)
+      eye=dict(x=2, y=1, z=1)
     ),
     scene=dict(
       aspectratio=dict(x=2, y=2, z=0.5),
@@ -102,7 +103,14 @@ def elevation_profile_plot(profile_x, profile_z):
         y=profile_z,
         name='Elevation Profile',
         mode='lines',
-        line=dict(color='black', width=3)
+        line=dict(color='black', width=3),
+        fill='tonexty',
+        fillcolor='rgba(0,0,0,0.2)'
+      ),
+      go.Scatter(
+        x=profile_x,        
+        y=[0.999*min(profile_z)] * len(profile_x),
+        mode=None
       )
     ]
   )
@@ -110,7 +118,9 @@ def elevation_profile_plot(profile_x, profile_z):
     autosize=False,  
     width=1400,
     height=400,
-    paper_bgcolor='rgb(243,243,243)'    
+    paper_bgcolor='rgb(243,243,243)',    
+    yaxis_range=[0.999*min(profile_z), 1.001*max(profile_z)],
+    showlegend=False
   )
 
   return fig

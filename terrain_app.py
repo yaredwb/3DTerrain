@@ -172,28 +172,28 @@ with st.sidebar:
     st.markdown('*Define the coordinates of a cross-section line: (x1, y1) - (x2, y2)*')
     x1 = st.slider(
       label='x1',
-      value=max(x),
+      value=0.96*max(x),
       min_value=min(x),
       max_value=max(x),
       step=np.ceil((max(x) - min(x)) / 50)
     )
     y1 = st.slider(
       label='y1',
-      value=min(y),
+      value=1.03*min(y),
       min_value=min(y),
       max_value=max(y),
       step=np.ceil((max(y) - min(y)) / 50)
     )
     x2 = st.slider(
       label='x2',
-      value=min(x),
+      value=1.03*min(x),
       min_value=min(x),
       max_value=max(x),
       step=np.ceil((max(x) - min(x)) / 50)
     )
     y2 = st.slider(
       label='y2',
-      value=max(y),
+      value=0.98*max(y),
       min_value=min(y),
       max_value=max(y),
       step=np.ceil((max(y) - min(y)) / 50)
