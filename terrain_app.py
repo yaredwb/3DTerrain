@@ -44,18 +44,18 @@ with st.sidebar:
         label='Decimal separator',
         options=['Dot', 'Comma']
       )
-      xy_lat_long = st.checkbox(
-        label='X and Y are geographic coordinates',
-        value=False
-      )
-      if xy_lat_long:
-        xy_coordds = st.selectbox(
-          label='(X, Y) corresponds to',
-          options=[
-            '(Longitude, Latitude)',
-            '(Latitude, Longitude)'            
-          ]
-        )
+      # xy_lat_long = st.checkbox(
+      #   label='X and Y are geographic coordinates',
+      #   value=False
+      # )
+      # if xy_lat_long:
+      #   xy_coordds = st.selectbox(
+      #     label='(X, Y) corresponds to',
+      #     options=[
+      #       '(Longitude, Latitude)',
+      #       '(Latitude, Longitude)'            
+      #     ]
+      #   )
       st.markdown('Example XYZ data source [here.](https://topex.ucsd.edu/cgi-bin/get_data.cgi)')
     elif data_option == 'Latitude and longitude bounds':      
       lat1 = st.number_input(
@@ -250,6 +250,7 @@ st.write(fig1)
 fig2 = elevation_profile_plot(profile_x, profile_z)
 st.write(fig2)
 
-st.markdown('''
-  Author: [Yared Bekele (PhD)](https://yaredwb.com) [GitHub](https://github.com/yaredwb) [LinkedIn](https://www.linkedin.com/in/yaredworku/) [Twitter](https://twitter.com/yaredwb)
-''')
+with st.sidebar:
+  st.markdown('''
+    Author: [Yared Bekele (PhD)](https://yaredwb.com) [GitHub](https://github.com/yaredwb) [LinkedIn](https://www.linkedin.com/in/yaredworku/) [Twitter](https://twitter.com/yaredwb)
+  ''')
