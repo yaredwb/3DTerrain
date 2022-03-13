@@ -11,12 +11,15 @@ def terrain_plot(x_terrain, y_terrain, z_terrain, z, N, xp, yp, zp,
     y_terrain: the y data of the terrain
     z_terrain: the z data of the terrain
     z: the original z data
+    N: the grid size
+    xp: the x data of the profile plane
+    yp: the y data of the profile plane
+    zp: the z data of the profile plane
     color_scale: the color scale
     show_scale: whether to show the elevation scale
     show_contours: whether to show the contours
     project_contours: whether to project the contours on XY plane
-    show_plane: whether to show the profile plane
-    N: the grid size
+    show_plane: whether to show the profile plane    
   """
   # Create the figure
   fig = go.Figure(
