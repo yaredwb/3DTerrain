@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd 
 import urllib.request
+from io import StringIO
 
 def read_sample_data(sample_file):
   """
@@ -38,9 +39,9 @@ def read_xyz_file(input_file, nrows_to_skip, delimiter, decimal):
     f = open('survey_data.csv', 'r')
     delim = ','
   else:
-    f = open(input_file.name, 'r')  
-  lines = f.readlines()[nrows_to_skip:]
-  f.close()
+    file_content = str(input_file.getvalue(), 'utf-8')
+    data = StringIO(file_content)
+    lines = data.readlines()
 
   x, y, z = [], [], []  
   for line in lines:

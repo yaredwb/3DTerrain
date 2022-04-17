@@ -25,9 +25,7 @@ with st.sidebar:
         'Latitude and longitude bounds'
       ],
       index=0
-    )
-    if data_option == 'Sample data':
-      x, y, z = read_sample_data('survey_data.csv')
+    )    
     if data_option == 'Raw XYZ data file':
       with st.form('Data and format'):
         input_file = st.file_uploader('Upload file with XYZ data', type=['txt', 'csv', 'xyz', '---'])          
@@ -215,7 +213,7 @@ with st.sidebar:
   with exp5:
     st.download_button(
       'Download Elevation Profile as CSV',
-      data=pd.DataFrame({'x': profile_x, 'y': profile_z}).to_csv(index=False),
+      data=pd.DataFrame({'x': profile_x, 'z': profile_z}).to_csv(index=False, header=None),
       file_name='elevation_profile.csv',
       mime='text/csv'
     )
