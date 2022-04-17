@@ -26,36 +26,28 @@ with st.sidebar:
       ],
       index=0
     )
+    if data_option == 'Sample data':
+      x, y, z = read_sample_data('survey_data.csv')
     if data_option == 'Raw XYZ data file':
-      input_file = st.file_uploader('Upload file with XYZ data', type=['txt', 'csv', 'xyz', '---'])          
-      skip_rows = st.number_input(
-        label='Number of rows to skip',
-        value=0,
-        min_value=0,
-        max_value=20,
-        step=1
-      )
-      delimiter = st.selectbox(
-        label='Data delimiter',
-        options=['Space', 'Comma', 'Semicolon', 'Tab']
-      )
-      decimal = st.selectbox(
-        label='Decimal separator',
-        options=['Dot', 'Comma']
-      )
-      # xy_lat_long = st.checkbox(
-      #   label='X and Y are geographic coordinates',
-      #   value=False
-      # )
-      # if xy_lat_long:
-      #   xy_coordds = st.selectbox(
-      #     label='(X, Y) corresponds to',
-      #     options=[
-      #       '(Longitude, Latitude)',
-      #       '(Latitude, Longitude)'            
-      #     ]
-      #   )
-      st.markdown('Example XYZ data source [here.](https://topex.ucsd.edu/cgi-bin/get_data.cgi)')
+      with st.form('Data and format'):
+        input_file = st.file_uploader('Upload file with XYZ data', type=['txt', 'csv', 'xyz', '---'])          
+        skip_rows = st.number_input(
+          label='Number of rows to skip',
+          value=0,
+          min_value=0,
+          max_value=20,
+          step=1
+        )
+        delimiter = st.selectbox(
+          label='Data delimiter',
+          options=['Space', 'Comma', 'Semicolon', 'Tab']
+        )
+        decimal = st.selectbox(
+          label='Decimal separator',
+          options=['Dot', 'Comma']
+        )
+        submitted = st.form_submit_button('Submit')        
+      st.markdown('Example XYZ data source [here](https://topex.ucsd.edu/cgi-bin/get_data.cgi).')
     elif data_option == 'Latitude and longitude bounds':      
       lat1 = st.number_input(
         label='Latitude 1',
@@ -95,7 +87,7 @@ with st.sidebar:
       else:
         lat_long_button = st.button(
           label='Get Data and Generate Terrain'
-        )
+        )      
       st.markdown('''
         *Note: Elevation data request from [Open Elevation](https://open-elevation.com/) may take too long, may not always succeed or may not return good resolution data depending on the location.*
       ''')      
@@ -126,29 +118,13 @@ with st.sidebar:
     if interp == 'Inverse Distance Weighting (IDW)':
       st.write('A power value of 2 and 5 closest points are used for IDW.')
     if interp == 'Triangulated Irregular Network (TIN)':
-      st.write('Linear interpolation based on Delaunay triangulation.')
-      # n_sample = st.number_input(
-      #   label='Number of closest points',
-      #   min_value=3,
-      #   max_value=10,
-      #   step=1,
-      #   value=5
-      # )
-      # p = st.number_input(
-      #   label='Power value',
-      #   min_value=2,
-      #   max_value=5,
-      #   step=1,
-      #   value=2
-      # )    
+      st.write('Linear interpolation based on Delaunay triangulation.')      
 
-if data_option == 'Raw XYZ data file':
+if data_option == 'Raw XYZ data file' and submitted:
   x, y, z = read_xyz_file(input_file, skip_rows, delimiter, decimal)
-elif data_option == 'Latitude and longitude bounds' and lat_long_button == True:
-  x, y, z = request_data_from_open_elevation(lat1, long1, lat2, long2)
-  #lat_long_button = False
-else:
-  xy_lat_long = False
+elif data_option == 'Latitude and longitude bounds' and lat_long_button:
+  x, y, z = request_data_from_open_elevation(lat1, long1, lat2, long2)  
+else:  
   x, y, z = read_sample_data('survey_data.csv')
 
 x = [float(i) for i in x]
