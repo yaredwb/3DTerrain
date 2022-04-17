@@ -11,11 +11,10 @@ st.set_page_config(
   initial_sidebar_state='auto'
 )
 
-# st.title('3D Terrain Generator')
-
 with st.sidebar:
   st.image('3D-terrain-generator-logo.png', use_column_width=True)
   # Exapnder for generating terrain from data source
+  st.title('Interactive Controls')
   exp1 = st.expander('Elevation Data Source', expanded=False)  
   with exp1:
     data_option = st.selectbox(
@@ -28,7 +27,7 @@ with st.sidebar:
       index=0
     )
     if data_option == 'Raw XYZ data file':
-      input_file = st.file_uploader('Upload file with XYZ data', type=['txt', 'csv', 'xyz', 'etc'])          
+      input_file = st.file_uploader('Upload file with XYZ data', type=['txt', 'csv', 'xyz', '---'])          
       skip_rows = st.number_input(
         label='Number of rows to skip',
         value=0,
@@ -169,7 +168,7 @@ with st.sidebar:
   # Expander for generating profile
   exp3 = st.expander('Generate Vertical Profile')
   with exp3:
-    st.markdown('*Define the coordinates of a cross-section line: (x1, y1) - (x2, y2)*')
+    st.markdown('Define the coordinates of a cross-section line: (x1, y1) -> (x2, y2). The x and y bounds are automatically adjusted based on the elevation data set.')
     x1 = st.slider(
       label='x1',
       value=0.96*max(x),
@@ -251,6 +250,13 @@ fig2 = elevation_profile_plot(profile_x, profile_z)
 st.write(fig2)
 
 with st.sidebar:
+  st.title('About')
   st.markdown('''
-    Author: [Yared Bekele (PhD)](https://yaredwb.com) [GitHub](https://github.com/yaredwb) [LinkedIn](https://www.linkedin.com/in/yaredworku/) [Twitter](https://twitter.com/yaredwb)
+    This 3D Terrain Generator web-based application is developed by Yared W. Bekele. The source code is available on [GitHub](https://github.com/yaredwb/3DTerrain).
+  ''')
+  st.markdown('''
+    [GitHub](https://github.com/yaredwb)
+    [LinkedIn](https://www.linkedin.com/in/yaredworku/)
+    [Twitter](https://twitter.com/yaredwb)
+    [Website](https://yaredwb.com)
   ''')
