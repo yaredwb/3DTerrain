@@ -196,24 +196,30 @@ with st.sidebar:
     project_contours = st.checkbox(
       label='Project Contours on XY Plane',
       value=False
-    )        
-
-
+    )
 
 xp, yp, zp = eqn_of_profile_plane(x1, y1, x2, y2, z)
 profile_x, profile_z = get_elevation_profile(x1, y1, x2, y2, x, y, z, N, interp)
-
 
 fig1 = terrain_plot(x_terrain, y_terrain, z_terrain, z, N, xp, yp, zp,
                    color_scale, show_scale, show_contours,
                    project_contours, show_plane)
 st.write(fig1)
-#fig.write_image("fig1.svg")
 
 fig2 = elevation_profile_plot(profile_x, profile_z)
 st.write(fig2)
 
 with st.sidebar:
+  # Expander to extract and download data
+  exp5 = st.expander('Extract and Download Data')
+  with exp5:
+    st.download_button(
+      'Download Elevation Profile as CSV',
+      data=pd.DataFrame({'x': profile_x, 'y': profile_z}).to_csv(index=False),
+      file_name='elevation_profile.csv',
+      mime='text/csv'
+    )
+
   st.title('About')
   st.markdown('''
     This 3D Terrain Generator web-based application is developed by Yared W. Bekele. The source code is available on [GitHub](https://github.com/yaredwb/3DTerrain).
