@@ -142,7 +142,7 @@ elif interp == 'Triangulated Irregular Network (TIN)':
 
 with st.sidebar:
   # Expander for generating profile
-  exp3 = st.expander('Generate Vertical Profile')
+  exp3 = st.expander('Generate Elevation Profile')
   with exp3:
     st.markdown('Define the coordinates of a cross-section line: (x1, y1) -> (x2, y2). The x and y bounds are automatically adjusted based on the elevation data set.')
     x1 = st.slider(
@@ -173,18 +173,6 @@ with st.sidebar:
       max_value=max(y),
       step=np.ceil((max(y) - min(y)) / 50)
     )    
-    # x1, x2 = st.slider(
-    #   label='Start and end x-coordinates: (x1, x2)',
-    #   value=(min(x), max(x)),
-    #   min_value=min(x),
-    #   max_value=max(x)
-    # )
-    # y1, y2 = st.slider(
-    #   label='Start and end y-coordinates: (y1, y2)',
-    #   value=(min(y), max(y)),
-    #   min_value=min(y),
-    #   max_value=max(y)
-    # )
     show_plane = st.checkbox(
       label='Show/Hide Profile Plane',
       value=True
