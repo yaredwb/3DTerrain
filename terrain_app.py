@@ -1,8 +1,24 @@
-import streamlit as st
 import numpy as np
-from process_data import *
+import pandas as pd
+from requests import session
+import streamlit as st
+from process_data import read_sample_data
+from process_data import read_xyz_file
+from process_data import request_data_from_open_elevation
 from spatial_interp import *
 from plot import *
+
+@st.cache(allow_output_mutation=True)
+def default(sample_file):
+  return read_sample_data(sample_file)
+
+@st.cache(allow_output_mutation=True)
+def user_file(input_file, nrows_to_skip, delimiter, decimal):
+  return read_xyz_file(input_file, nrows_to_skip, delimiter, decimal)
+
+@st.cache(allow_output_mutation=True)
+def open_elevation(lat1, long1, lat2, long2):
+  return request_data_from_open_elevation(lat1, long1, lat2, long2)
 
 st.set_page_config(
   page_title='3D Terrain Generator',
@@ -118,15 +134,27 @@ with st.sidebar:
     if interp == 'Triangulated Irregular Network (TIN)':
       st.write('Linear interpolation based on Delaunay triangulation.')      
 
-if data_option == 'Raw XYZ data file' and submitted:
-  x, y, z = read_xyz_file(input_file, skip_rows, delimiter, decimal)
-elif data_option == 'Latitude and longitude bounds' and lat_long_button:
-  x, y, z = request_data_from_open_elevation(lat1, long1, lat2, long2)  
-else:  
-  x, y, z = read_sample_data('survey_data.csv')
+# if data_option == 'Sample data':
+#   x, y, z = read_sample_data('survey_data.csv')
+# elif data_option == 'Raw XYZ data file' and submitted == True:
+#   x, y, z = read_xyz_file(input_file, skip_rows, delimiter, decimal)
+#   st.write(submitted)
+# elif data_option == 'Latitude and longitude bounds' and lat_long_button:
+#   x, y, z = request_data_from_open_elevation(lat1, long1, lat2, long2)
 
-x = [float(i) for i in x]
-y = [float(i) for i in y]
+sess = st.session_state
+if not sess:
+  sess.raw_data_submitted = False
+
+
+if data_option == 'Raw XYZ data file' and submitted:
+  x, y, z = user_file(input_file, skip_rows, delimiter, decimal)
+  sess.raw_data_submitted = True  
+elif data_option == 'Latitude and longitude bounds' and lat_long_button:
+  x, y, z = open_elevation(lat1, long1, lat2, long2)
+else:
+  x, y, z = default('survey_data.csv')
+
 #convertXYToDistance(x, y)
 
 #if xy_lat_long:
