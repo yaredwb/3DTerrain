@@ -1,6 +1,6 @@
 ![](3D-terrain-generator-logo.png?raw=true "3D Terrain Generator")
 
-This is a web app to generate a 3D terrain from different data sources. The app is deployed on Heroku and may be accessed here: [3D Terrain Generator](https://generate-3d-terrain.herokuapp.com/).
+This is a web app to generate a 3D terrain from different data sources. The app is deployed on Streamlit Cloud and may be accessed here: [3D Terrain Generator]([https://generate-3d-terrain.herokuapp.com/](https://3d-terrain-generator.streamlit.app/)).
 
 The types of elevation data sources supported at the moment are:
 
