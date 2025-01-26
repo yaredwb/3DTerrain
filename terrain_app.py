@@ -15,17 +15,17 @@ st.set_page_config(
     initial_sidebar_state='auto'
 )
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def default(sample_file):
     return read_sample_data(sample_file)
 
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def user_file(input_file, nrows_to_skip, delimiter, decimal):
     return read_xyz_file(input_file, nrows_to_skip, delimiter, decimal)
 
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data()
 def open_elevation(lat1, long1, lat2, long2):
     return request_data_from_open_elevation(lat1, long1, lat2, long2)
 
