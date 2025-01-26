@@ -32,7 +32,7 @@ def open_elevation(lat1, long1, lat2, long2):
 
 
 with st.sidebar:
-    st.image('3D-terrain-generator-logo.png', use_column_width=True)
+    st.image('3D-terrain-generator-logo.png', use_container_width=True)
     # Exapnder for generating terrain from data source
     st.title('Interactive Controls')
     exp1 = st.expander('Elevation Data Source', expanded=False)
