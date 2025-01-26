@@ -8,28 +8,28 @@ from process_data import request_data_from_open_elevation
 from spatial_interp import *
 from plot import *
 
-
-@st.cache(allow_output_mutation=True)
-def default(sample_file):
-    return read_sample_data(sample_file)
-
-
-@st.cache(allow_output_mutation=True)
-def user_file(input_file, nrows_to_skip, delimiter, decimal):
-    return read_xyz_file(input_file, nrows_to_skip, delimiter, decimal)
-
-
-@st.cache(allow_output_mutation=True)
-def open_elevation(lat1, long1, lat2, long2):
-    return request_data_from_open_elevation(lat1, long1, lat2, long2)
-
-
 st.set_page_config(
     page_title='3D Terrain Generator',
     page_icon='🏔',
     layout='wide',
     initial_sidebar_state='auto'
 )
+
+@st.cache_data(allow_output_mutation=True)
+def default(sample_file):
+    return read_sample_data(sample_file)
+
+
+@st.cache_data(allow_output_mutation=True)
+def user_file(input_file, nrows_to_skip, delimiter, decimal):
+    return read_xyz_file(input_file, nrows_to_skip, delimiter, decimal)
+
+
+@st.cache_data(allow_output_mutation=True)
+def open_elevation(lat1, long1, lat2, long2):
+    return request_data_from_open_elevation(lat1, long1, lat2, long2)
+
+
 
 with st.sidebar:
     st.image('3D-terrain-generator-logo.png', use_column_width=True)
