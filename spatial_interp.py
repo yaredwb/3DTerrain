@@ -200,8 +200,22 @@ def get_elevation_profile(x1, y1, x2, y2, x, y, z, N, method, n_sample=5, p=2):
             B = np.sum(1 / ds**p)
             profile_z.append(A / B)
         elif method == 'Triangulated Irregular Network (TIN)':
-            _, idx = tree_known_xy.query(xy, 1)
-            profile_z.append(known_z[idx])
+            # Create Delaunay triangulation
+            tri = spatial.Delaunay(np.c_[x, y])
+            # Find which triangle each profile point belongs to
+            tri_loc_prof = tri.find_simplex(xy)
+            if tri_loc_prof == -1:
+                profile_z.append(np.nan)
+            else:
+                # Barycentric coordinates
+                X_prof = tri.transform[tri_loc_prof, :2]
+                Y_prof = xy - tri.transform[tri_loc_prof, 2]
+                b_prof = np.einsum('ij,i->j', X_prof, Y_prof)
+                bcoords_prof = np.r_[b_prof, 1 - b_prof.sum()]
+                # Elevations at the vertices of the triangle
+                tri_zs_prof = known_z[tri.simplices[tri_loc_prof]]
+                # Interpolate elevation
+                profile_z.append(np.dot(bcoords_prof, tri_zs_prof)[0])
 
     profile_d = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
     profile_x = np.linspace(0, profile_d, N)

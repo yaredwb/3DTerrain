@@ -47,17 +47,6 @@ def change_dist_to_km(d, R=6371):
     return d_converted
 
 
-def convert_xy_to_dist(x, y):
-    """
-    Converts xy data to spatial distances.
-    Parameters:
-      x: the x data
-      y: the y data    
-    """
-    xy = np.array([x, y]).T
-    d = spatial.distance.cdist(xy, xy, 'euclidean')
-
-
 def haversine(lat1, long1, lat2, long2):
     """
     Calculate the great circle distance between two points 
