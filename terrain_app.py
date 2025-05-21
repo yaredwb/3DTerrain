@@ -158,10 +158,11 @@ if data_option == 'Raw XYZ data file' and submitted:
     sess.raw_data_submitted = True
 elif data_option == 'Latitude and longitude bounds' and lat_long_button:
     x, y, z = open_elevation(lat1, long1, lat2, long2)
+    if x is None:
+        st.error("Failed to retrieve data from Open Elevation API. Please try different coordinates or another data source.")
+        st.stop()
 else:
     x, y, z = default('survey_data.csv')
-
-#convertXYToDistance(x, y)
 
 # if xy_lat_long:
 #  pass

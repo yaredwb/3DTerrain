@@ -37,13 +37,9 @@ def read_xyz_file(input_file, nrows_to_skip, delimiter, decimal):
     else:
         delim = '\t'
 
-    if input_file == None:
-        f = open('survey_data.csv', 'r')
-        delim = ','
-    else:
-        file_content = str(input_file.getvalue(), 'utf-8')
-        data = StringIO(file_content)
-        lines = data.readlines()
+    file_content = str(input_file.getvalue(), 'utf-8')
+    data = StringIO(file_content)
+    lines = data.readlines()
 
     x, y, z = [], [], []
     for line in lines:
@@ -93,6 +89,9 @@ def request_data_from_open_elevation(lat1, long1, lat2, long2):
             count += 1
             continue
         break
+    
+    if count > number_of_tries:
+        return None, None, None
 
     # Process response
     data = response_file.read()
